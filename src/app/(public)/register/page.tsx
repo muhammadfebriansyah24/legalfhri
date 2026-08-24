@@ -105,7 +105,7 @@ export default function RegisterPage() {
                   type="text" 
                   value={formData.nama} 
                   onChange={(e) => setFormData({...formData, nama: e.target.value})} 
-                  placeholder={tipeAkun === "perusahaan" ? "PT First HR Indonesia" : "Budi Santoso"} 
+                  placeholder={tipeAkun === "perusahaan" ? "PT First HR Indonesia" : "Enter your name"} 
                   className="w-full bg-[#EFF6FF] rounded-xl px-4 py-3 text-sm text-[#0B2A4A] font-medium placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#DC0017]/30 border border-transparent focus:border-transparent transition-all duration-300" 
                 />
               </div>
@@ -135,7 +135,7 @@ export default function RegisterPage() {
                   type="email" 
                   value={formData.email} 
                   onChange={(e) => setFormData({...formData, email: e.target.value})} 
-                  placeholder={tipeAkun === "perusahaan" ? "legal@perusahaan.com" : "budi@gmail.com"} 
+                  placeholder={tipeAkun === "perusahaan" ? "legal@perusahaan.com" : "emailname@gmail.com"} 
                   className="w-full bg-[#EFF6FF] rounded-xl px-4 py-3 text-sm text-[#0B2A4A] font-medium placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#DC0017]/30 border border-transparent focus:border-transparent transition-all duration-300" 
                 />
               </div>
