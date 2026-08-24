@@ -63,10 +63,11 @@ export default function SettingsPage() {
       <div className="bg-slate-900/5 p-1 rounded-3xl border border-black/5 shadow-xl">
         <form onSubmit={handleSave} className="bg-white rounded-[calc(1.5rem-0.25rem)] p-8 space-y-6">
           <div>
-            <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
+            <label htmlFor="wa_marketing_number" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
               Nomor WhatsApp Marketing (Format: 62812xxxxx)
             </label>
             <input
+              id="wa_marketing_number"
               required
               value={values.wa_marketing_number ?? ""}
               onChange={(e) => setValues({ ...values, wa_marketing_number: e.target.value })}
@@ -77,10 +78,11 @@ export default function SettingsPage() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
+              <label htmlFor="jam_kerja_mulai" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
                 Jam Kerja Mulai
               </label>
               <input 
+                id="jam_kerja_mulai"
                 required
                 value={values.jam_kerja_mulai ?? ""} 
                 onChange={(e) => setValues({ ...values, jam_kerja_mulai: e.target.value })} 
@@ -89,10 +91,11 @@ export default function SettingsPage() {
               />
             </div>
             <div>
-              <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
+              <label htmlFor="jam_kerja_selesai" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
                 Jam Kerja Selesai
               </label>
               <input 
+                id="jam_kerja_selesai"
                 required
                 value={values.jam_kerja_selesai ?? ""} 
                 onChange={(e) => setValues({ ...values, jam_kerja_selesai: e.target.value })} 
@@ -103,10 +106,11 @@ export default function SettingsPage() {
           </div>
 
           <div>
-            <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
+            <label htmlFor="jam_kerja_hari" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
               Hari Operasional
             </label>
             <input 
+              id="jam_kerja_hari"
               required
               value={values.jam_kerja_hari ?? ""} 
               onChange={(e) => setValues({ ...values, jam_kerja_hari: e.target.value })} 

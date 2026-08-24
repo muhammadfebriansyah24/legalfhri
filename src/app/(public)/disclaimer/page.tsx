@@ -1,3 +1,8 @@
+import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Legal Disclaimer — FHRI Legal Advisory" };
+
 export default function DisclaimerPage() {
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center p-4 py-12 relative overflow-hidden">
@@ -15,7 +20,7 @@ export default function DisclaimerPage() {
                 Legal Disclaimer
               </span>
               <h1 className="text-3xl font-extrabold text-[#0B2A4A] tracking-tight mb-2">
-                Syarat &amp; Ketentuan Konsultasi
+                Syarat & Ketentuan Konsultasi
               </h1>
               <p className="text-slate-500 text-xs font-medium leading-relaxed">
                 Harap baca dengan seksama sebelum melakukan pendaftaran layanan penasihat hukum kami.
@@ -52,12 +57,12 @@ export default function DisclaimerPage() {
             </div>
 
             <div className="mt-8 pt-6 border-t border-slate-100 text-center">
-              <a 
+              <Link 
                 href="/register" 
                 className="inline-block bg-[#DC0017] hover:bg-red-700 text-white text-xs font-bold rounded-full px-8 py-4 transition-all duration-300 active:scale-98 cursor-pointer shadow-lg shadow-red-100 tracking-wider"
               >
                 KEMBALI KE PENDAFTARAN
-              </a>
+              </Link>
             </div>
 
           </div>

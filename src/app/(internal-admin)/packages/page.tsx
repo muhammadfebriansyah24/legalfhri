@@ -150,8 +150,9 @@ export default function PackagesPage() {
         <div className="bg-slate-900/5 p-1 rounded-3xl border border-black/5 shadow-xl">
           <form onSubmit={handleCreate} className="bg-white rounded-[calc(1.5rem-0.25rem)] p-8 grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="md:col-span-2">
-              <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">Nama Paket</label>
+              <label htmlFor="nama_paket" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">Nama Paket</label>
               <input 
+                id="nama_paket"
                 required 
                 value={form.nama_paket} 
                 onChange={(e) => setForm({ ...form, nama_paket: e.target.value })} 
@@ -160,8 +161,9 @@ export default function PackagesPage() {
               />
             </div>
             <div>
-              <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">Jumlah Token</label>
+              <label htmlFor="jumlah_token" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">Jumlah Token</label>
               <input 
+                id="jumlah_token"
                 required 
                 type="number" 
                 min={1} 
@@ -172,8 +174,9 @@ export default function PackagesPage() {
               />
             </div>
             <div>
-              <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">Harga (Rp)</label>
+              <label htmlFor="harga" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">Harga (Rp)</label>
               <input 
+                id="harga"
                 required 
                 type="number" 
                 min={0} 
@@ -184,8 +187,9 @@ export default function PackagesPage() {
               />
             </div>
             <div>
-              <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">Masa Berlaku (hari)</label>
+              <label htmlFor="masa_berlaku_hari" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">Masa Berlaku (hari)</label>
               <input 
+                id="masa_berlaku_hari"
                 required 
                 type="number" 
                 min={1} 
@@ -196,8 +200,9 @@ export default function PackagesPage() {
               />
             </div>
             <div>
-              <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">Urutan Tampil</label>
+              <label htmlFor="urutan_tampil" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">Urutan Tampil</label>
               <input 
+                id="urutan_tampil"
                 type="number" 
                 value={form.urutan_tampil} 
                 onChange={(e) => setForm({ ...form, urutan_tampil: e.target.value })} 

@@ -29,7 +29,7 @@ export async function GET(request: Request) {
   try {
     const [rows] = await pool.query<RowDataPacket[]>(sql, params);
     return NextResponse.json(rows);
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch {
+    return NextResponse.json({ error: "Terjadi kesalahan pada server." }, { status: 500 });
   }
 }

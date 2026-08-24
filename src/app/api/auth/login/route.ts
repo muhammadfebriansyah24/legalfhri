@@ -15,10 +15,10 @@ export async function POST(request: Request) {
     }
 
     // 2. Cari user di database berdasarkan email
-    const [users] = await pool.query<RowDataPacket[]>('SELECT * FROM users WHERE email = ?', [email]);
+    const [users] = await pool.query<RowDataPacket[]>('SELECT id, email, password, role, nama_perusahaan FROM users WHERE email = ?', [email]);
     
     if (users.length === 0) {
-      return NextResponse.json({ error: 'Email tidak terdaftar!' }, { status: 401 });
+      return NextResponse.json({ error: 'Email atau password salah!' }, { status: 401 });
     }
 
     const user = users[0];
@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      return NextResponse.json({ error: 'Password salah!' }, { status: 401 });
+      return NextResponse.json({ error: 'Email atau password salah!' }, { status: 401 });
     }
 
     // 4. Jika berhasil, siapkan respon sukses

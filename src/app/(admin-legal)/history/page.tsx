@@ -1,7 +1,11 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { getSession } from "@/lib/session";
 import pool from "@/lib/db";
 import type { RowDataPacket } from "mysql2";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Riwayat Konsultasi — FHRI Legal Advisory" };
 
 export default async function AdminHistoryPage() {
   const session = await getSession();
@@ -11,7 +15,8 @@ export default async function AdminHistoryPage() {
     `SELECT c.id, c.topik, c.created_at, u.nama_perusahaan
      FROM consultations c JOIN users u ON u.id = c.user_id
      WHERE c.admin_id = ? AND c.status = 'closed'
-     ORDER BY c.created_at DESC`,
+     ORDER BY c.created_at DESC
+     LIMIT 200`,
     [session.id]
   );
 
@@ -44,7 +49,7 @@ export default async function AdminHistoryPage() {
         ) : (
           <div className="divide-y divide-slate-100">
             {rows.map((r) => (
-              <a
+              <Link
                 key={r.id}
                 href={`/case/${r.id}`}
                 className="group flex items-center justify-between p-6 hover:bg-slate-50/50 transition-all duration-300"
@@ -73,7 +78,7 @@ export default async function AdminHistoryPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         )}

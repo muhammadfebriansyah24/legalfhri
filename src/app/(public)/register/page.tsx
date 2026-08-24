@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useUi } from "@/components/ToastProvider";
 
 export default function RegisterPage() {
   const router = useRouter();
   const { showToast } = useUi();
-  const [tipeAkun, setTipeAkun] = useState("perusahaan");
+  const [tipeAkun, setTipeAkun] = useState<"perusahaan" | "perorangan">("perusahaan");
   
   const [formData, setFormData] = useState({
     nama: "",
@@ -95,10 +96,11 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">
+                <label htmlFor="nama" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">
                   {tipeAkun === "perusahaan" ? "Nama Perusahaan" : "Nama Lengkap"}
                 </label>
                 <input 
+                  id="nama"
                   required 
                   type="text" 
                   value={formData.nama} 
@@ -109,10 +111,11 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">
+                <label htmlFor="no_whatsapp" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">
                   Nomor WhatsApp
                 </label>
                 <input 
+                  id="no_whatsapp"
                   required 
                   type="tel" 
                   value={formData.no_whatsapp} 
@@ -123,10 +126,11 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">
+                <label htmlFor="email" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">
                   Email {tipeAkun === "perusahaan" ? "Perusahaan" : "Pribadi"}
                 </label>
                 <input 
+                  id="email"
                   required 
                   type="email" 
                   value={formData.email} 
@@ -137,10 +141,11 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">
+                <label htmlFor="password" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">
                   Password
                 </label>
                 <input 
+                  id="password"
                   required 
                   type="password" 
                   value={formData.password} 
@@ -158,9 +163,9 @@ export default function RegisterPage() {
                 />
                 <p>
                   Saya menyetujui{" "}
-                  <a href="/disclaimer" target="_blank" className="font-extrabold text-[#DC0017] hover:underline">
+                  <Link href="/disclaimer" target="_blank" className="font-extrabold text-[#DC0017] hover:underline">
                     Legal Disclaimer & Syarat Ketentuan
-                  </a>{" "}
+                  </Link>{" "}
                   yang berlaku di FHRI.
                 </p>
               </div>
@@ -184,9 +189,9 @@ export default function RegisterPage() {
             <div className="mt-8 pt-6 border-t border-slate-100 text-center">
               <p className="text-xs text-slate-500 font-medium">
                 Sudah memiliki akun?{" "}
-                <a href="/login" className="font-extrabold text-[#DC0017] hover:underline">
+                <Link href="/login" className="font-extrabold text-[#DC0017] hover:underline">
                   Login di sini
-                </a>
+                </Link>
               </p>
             </div>
           </div>

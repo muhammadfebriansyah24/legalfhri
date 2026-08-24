@@ -1,6 +1,6 @@
 import pool from '@/lib/db';
 import type { RowDataPacket } from 'mysql2';
-import { deductOneTokenAndClose, InsufficientTokenError } from '@/lib/tokenDeduct';
+import { deductOneTokenAndClose } from '@/lib/tokenDeduct';
 import type { SessionData } from '@/lib/session';
 
 export class ForbiddenError extends Error {}
@@ -24,10 +24,5 @@ export async function closeConsultation(session: SessionData, consultationId: st
   const consultation = rows[0];
   if (consultation.status === 'closed') throw new AlreadyClosedError();
 
-  try {
-    await deductOneTokenAndClose(consultation.user_id, consultation.id);
-  } catch (err) {
-    if (err instanceof InsufficientTokenError) throw err;
-    throw err;
-  }
+  await deductOneTokenAndClose(consultation.user_id, consultation.id);
 }

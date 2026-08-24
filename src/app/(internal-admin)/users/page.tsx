@@ -39,16 +39,13 @@ export default function UsersPage() {
     }
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  // Debounced search
+  // Debounced search (also runs on mount since query starts as "")
   useEffect(() => {
     const t = setTimeout(() => {
       fetchUsers(query);
     }, 300);
     return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   // Handle instant search on Enter
@@ -89,7 +86,7 @@ export default function UsersPage() {
       } else {
         showToast("success", `Role ${u.nama_perusahaan} berhasil diubah ke ${ROLE_LABEL[newRole]}.`);
         setUsers((prev) =>
-          prev.map((user) => (user.id === u.id ? { ...user, role: newRole as any } : user))
+          prev.map((user) => (user.id === u.id ? { ...user, role: newRole as User['role'] } : user))
         );
       }
     } catch {

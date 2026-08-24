@@ -4,14 +4,10 @@ import type { RowDataPacket, ResultSetHeader } from 'mysql2';
 import { getSession } from '@/lib/session';
 import { getTotalBalance } from '@/lib/tokenBalance';
 import { saveUploadedFile, UploadError } from '@/lib/upload';
-import { runAutoClose } from '@/lib/autoClose';
 
 export async function GET(request: Request) {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: 'Belum login.' }, { status: 401 });
-
-  // Trigger background auto-close check
-  runAutoClose().catch(() => {});
 
   const { searchParams } = new URL(request.url);
   const status = searchParams.get('status'); // 'waiting' | 'active' | 'closed'

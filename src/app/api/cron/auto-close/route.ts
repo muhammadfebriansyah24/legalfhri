@@ -7,14 +7,14 @@ export async function GET(request: Request) {
     const key = searchParams.get("key");
     const secret = process.env.CRON_SECRET;
 
-    if (secret && key !== secret) {
+    if (!secret || key !== secret) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const closed = await runAutoClose();
     return NextResponse.json({ success: true, closed });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch {
+    return NextResponse.json({ error: "Terjadi kesalahan pada server." }, { status: 500 });
   }
 }
 

@@ -23,7 +23,10 @@ type Consultation = {
   admin_id: number | null;
 };
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+const fetcher = (url: string) => fetch(url).then((r) => {
+  if (!r.ok) throw new Error(`API error ${r.status}`);
+  return r.json();
+});
 
 const STATUS_LABEL: Record<string, string> = { waiting: "Menunggu", active: "Aktif", closed: "Selesai" };
 const STATUS_STYLE: Record<string, string> = {
@@ -93,7 +96,7 @@ export default function ChatRoom({
         const isOutside = currentMinutes < startMinutes || currentMinutes > endMinutes;
         setIsOutsideHours(isWeekend || isOutside);
       })
-      .catch(() => {});
+      .catch((err) => { console.error('Failed to load settings:', err); });
   }, []);
 
   const handleSend = async (e: React.FormEvent) => {
@@ -292,6 +295,7 @@ export default function ChatRoom({
                 file ? "bg-[#EFF6FF] text-[#0B2A4A] border-[#EFF6FF]" : "text-slate-400 hover:text-[#0B2A4A]"
               }`}
               title="Lampirkan berkas (PDF/JPG/PNG, maks 5MB)"
+              aria-label="Lampirkan berkas"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
@@ -310,6 +314,7 @@ export default function ChatRoom({
                 <button 
                   type="button" 
                   onClick={() => setFile(null)} 
+                  aria-label="Hapus berkas"
                   className="text-slate-400 hover:text-[#DC0017] font-bold text-xs"
                 >
                   ×
@@ -327,6 +332,7 @@ export default function ChatRoom({
             <button
               type="submit"
               disabled={sending || (!pesan.trim() && !file)}
+              aria-label="Kirim pesan"
               className="bg-[#DC0017] hover:bg-red-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white rounded-full w-11 h-11 flex items-center justify-center shrink-0 shadow-lg shadow-red-100 transition-all duration-300 active:scale-95 cursor-pointer"
             >
               <svg className="w-4.5 h-4.5 transform rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

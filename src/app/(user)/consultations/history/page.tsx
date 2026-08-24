@@ -1,15 +1,19 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { getSession } from "@/lib/session";
 import pool from "@/lib/db";
 import type { RowDataPacket } from "mysql2";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Riwayat Kasus — FHRI Legal Advisory" };
 
 export default async function HistoryPage() {
   const session = await getSession();
   if (!session) redirect("/login");
 
   const [rows] = await pool.query<RowDataPacket[]>(
-    "SELECT id, topik, created_at FROM consultations WHERE user_id = ? AND status = 'closed' ORDER BY created_at DESC",
-    [session!.id]
+    "SELECT id, topik, created_at FROM consultations WHERE user_id = ? AND status = 'closed' ORDER BY created_at DESC LIMIT 100",
+    [session.id]
   );
 
   return (
@@ -38,7 +42,7 @@ export default async function HistoryPage() {
         ) : (
           <div className="divide-y divide-slate-100">
             {rows.map((r) => (
-              <a 
+              <Link 
                 key={r.id} 
                 href={`/consultations/${r.id}`} 
                 className="group flex items-center justify-between p-6 hover:bg-slate-50/50 transition-all duration-300"
@@ -68,7 +72,7 @@ export default async function HistoryPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         )}

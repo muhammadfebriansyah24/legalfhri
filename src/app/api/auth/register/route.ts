@@ -17,6 +17,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Semua kolom wajib diisi!' }, { status: 400 });
     }
 
+    // 1b. Password minimum 8 karakter
+    if (password.length < 8) {
+      return NextResponse.json({ error: 'Password minimal 8 karakter!' }, { status: 400 });
+    }
+
     // 2. Anti-abuse free trial (PRD §7.5): email ATAU no. WhatsApp yang sudah pernah
     // dipakai tidak boleh dipakai lagi, agar 1 perusahaan tidak klaim ulang token gratis.
     const [existingUsers] = await pool.query<RowDataPacket[]>(

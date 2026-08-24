@@ -52,10 +52,11 @@ export default function NewConsultationPage() {
       <div className="bg-slate-900/5 p-1 rounded-3xl border border-black/5 shadow-xl">
         <form onSubmit={handleSubmit} className="bg-white rounded-[calc(1.5rem-0.25rem)] p-8 space-y-6">
           <div>
-            <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
+            <label htmlFor="topik" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
               Topik Permasalahan
             </label>
             <input
+              id="topik"
               required
               value={topik}
               onChange={(e) => setTopik(e.target.value)}
@@ -65,10 +66,11 @@ export default function NewConsultationPage() {
           </div>
 
           <div>
-            <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
+            <label htmlFor="deskripsi" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
               Deskripsi Kronologi / Kebutuhan
             </label>
             <textarea
+              id="deskripsi"
               required
               rows={6}
               value={deskripsi}

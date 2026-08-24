@@ -88,7 +88,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
       {children}
 
       {/* Floating Toasts container */}
-      <div className="fixed top-6 right-6 z-[9999] flex flex-col gap-3 max-w-sm w-full pointer-events-none">
+      <div role="status" aria-live="polite" className="fixed top-6 right-6 z-[9999] flex flex-col gap-3 max-w-sm w-full pointer-events-none">
         {toasts.map((t) => {
           let themeClasses = "bg-[#0B2A4A]/95 text-white border-slate-700/50 shadow-slate-900/10";
           let icon = "ℹ️";
@@ -119,12 +119,15 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
 
       {/* Custom Modal Dialog (Double-Bezel & Glass overlay) */}
       {modal && modal.isOpen && (
-        <div className="fixed inset-0 z-[9998] flex items-center justify-center p-4 bg-[#0B2A4A]/40 backdrop-blur-md animate-fade-in">
+        <div
+          className="fixed inset-0 z-[9998] flex items-center justify-center p-4 bg-[#0B2A4A]/40 backdrop-blur-md animate-fade-in"
+          onKeyDown={(e) => { if (e.key === 'Escape') modal.resolve(false); }}
+        >
           {/* Outer Shell */}
-          <div className="bg-slate-950/5 p-1.5 rounded-[2rem] border border-black/5 shadow-2xl max-w-md w-full animate-scale-up">
+          <div role="dialog" aria-modal="true" aria-labelledby="modal-title" className="bg-slate-950/5 p-1.5 rounded-[2rem] border border-black/5 shadow-2xl max-w-md w-full animate-scale-up">
             {/* Inner Core */}
             <div className="bg-white rounded-[calc(2rem-0.375rem)] p-8 border border-slate-100 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)]">
-              <h3 className="text-lg font-extrabold text-[#0B2A4A] mb-3 uppercase tracking-wider">
+              <h3 id="modal-title" className="text-lg font-extrabold text-[#0B2A4A] mb-3 uppercase tracking-wider">
                 {modal.title}
               </h3>
               <p className="text-xs text-slate-500 mb-6 leading-relaxed font-medium">

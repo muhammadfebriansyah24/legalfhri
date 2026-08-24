@@ -6,7 +6,7 @@ import { ToastProvider } from "@/components/ToastProvider";
 // Konfigurasi ketebalan font Poppins yang dibutuhkan
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {

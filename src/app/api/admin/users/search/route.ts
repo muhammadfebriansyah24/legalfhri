@@ -15,9 +15,9 @@ export async function GET(request: Request) {
 
   const [rows] = await pool.query<RowDataPacket[]>(
     `SELECT id, nama_perusahaan, email, no_whatsapp
-     FROM users WHERE role = 'user' AND (email LIKE ? OR no_whatsapp LIKE ?)
+     FROM users WHERE role = 'user' AND (email LIKE ? OR no_whatsapp LIKE ? OR nama_perusahaan LIKE ?)
      LIMIT 10`,
-    [`%${q}%`, `%${q}%`]
+    [`%${q}%`, `%${q}%`, `%${q}%`]
   );
   return NextResponse.json(rows);
 }

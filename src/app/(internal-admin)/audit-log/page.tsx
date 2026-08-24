@@ -39,11 +39,10 @@ export default function AuditLogPage() {
     }
   };
 
-  useEffect(() => { load(""); }, []);
-
   useEffect(() => {
     const t = setTimeout(() => load(q), 300);
     return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [q]);
 
   const isExpired = (d: string) => new Date(d) < new Date();

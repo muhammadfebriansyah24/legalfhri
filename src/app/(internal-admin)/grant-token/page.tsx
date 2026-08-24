@@ -110,7 +110,7 @@ export default function GrantTokenPage() {
           
           {/* User selector input */}
           <div>
-            <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
+            <label htmlFor="search-user" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
               Cari User (Email / No. WhatsApp / Nama)
             </label>
             {selectedUser ? (
@@ -130,6 +130,7 @@ export default function GrantTokenPage() {
             ) : (
               <div className="relative">
                 <input
+                  id="search-user"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Ketik email, nomor WA, atau nama..."
@@ -185,10 +186,11 @@ export default function GrantTokenPage() {
           {/* Render package path selection */}
           {mode === "package" ? (
             <div>
-              <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
+              <label htmlFor="packageId" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
                 Pilih Paket
               </label>
               <select
+                id="packageId"
                 value={packageId ?? ""}
                 onChange={(e) => setPackageId(Number(e.target.value))}
                 className="w-full bg-[#EFF6FF] rounded-xl px-4 py-3 text-xs text-[#0B2A4A] font-bold focus:outline-none focus:ring-2 focus:ring-[#DC0017]/30 border border-transparent focus:border-transparent transition-all duration-300"
@@ -204,10 +206,11 @@ export default function GrantTokenPage() {
           ) : (
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
+                <label htmlFor="jumlahToken" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
                   Jumlah Token
                 </label>
                 <input 
+                  id="jumlahToken"
                   type="number" 
                   min={1} 
                   value={jumlahToken} 
@@ -216,10 +219,11 @@ export default function GrantTokenPage() {
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
+                <label htmlFor="masaBerlaku" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
                   Masa Berlaku (Hari)
                 </label>
                 <input 
+                  id="masaBerlaku"
                   type="number" 
                   min={1} 
                   value={masaBerlaku} 
@@ -232,10 +236,11 @@ export default function GrantTokenPage() {
 
           {/* Catatan / Alasan */}
           <div>
-            <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
+            <label htmlFor="catatan" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2.5 uppercase tracking-wider">
               Catatan {mode === "manual" && <span className="text-[#DC0017] font-extrabold">(Wajib)</span>}
             </label>
             <textarea
+              id="catatan"
               required={mode === "manual"}
               value={catatan}
               onChange={(e) => setCatatan(e.target.value)}

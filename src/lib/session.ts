@@ -32,7 +32,7 @@ async function hmacKey() {
     new TextEncoder().encode(secret()),
     { name: 'HMAC', hash: 'SHA-256' },
     false,
-    ['sign']
+    ['sign', 'verify']
   );
 }
 
@@ -54,8 +54,11 @@ export async function decodeSession(cookieValue: string | undefined): Promise<Se
   const [payload, sig] = cookieValue.split('.');
   if (!payload || !sig) return null;
 
-  const expected = await sign(payload);
-  if (expected.length !== sig.length || expected !== sig) return null;
+  // ponytail: constant-time verify via Web Crypto; upgrade to JWT if multi-service
+  const key = await hmacKey();
+  const sigBytes = Uint8Array.from(atob(sig.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0));
+  const valid = await crypto.subtle.verify('HMAC', key, sigBytes, new TextEncoder().encode(payload));
+  if (!valid) return null;
 
   try {
     const json = Buffer.from(payload.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString();

@@ -44,7 +44,7 @@ export async function PATCH(
     }
 
     return NextResponse.json({ success: true, message: "Role berhasil diubah." });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch {
+    return NextResponse.json({ error: "Terjadi kesalahan pada server." }, { status: 500 });
   }
 }

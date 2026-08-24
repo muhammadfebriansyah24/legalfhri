@@ -7,7 +7,20 @@ export async function GET() {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: 'Belum login.' }, { status: 401 });
 
-  const [rows] = await pool.query<RowDataPacket[]>('SELECT setting_key, setting_value FROM app_settings');
+  // Non-admin users only get public-safe working hours settings
+  const isAdmin = session.role === 'superadmin' || session.role === 'digital_marketing' || session.role === 'admin_legal';
+  const allowedKeys = isAdmin
+    ? null // admins see everything
+    : ['jam_kerja_mulai', 'jam_kerja_selesai', 'jam_kerja_hari'];
+
+  let sql = 'SELECT setting_key, setting_value FROM app_settings';
+  const params: string[] = [];
+  if (allowedKeys) {
+    sql += ` WHERE setting_key IN (${allowedKeys.map(() => '?').join(',')})`;
+    params.push(...allowedKeys);
+  }
+
+  const [rows] = await pool.query<RowDataPacket[]>(sql, params);
   const settings: Record<string, string> = {};
   for (const row of rows) settings[row.setting_key] = row.setting_value;
   return NextResponse.json(settings);

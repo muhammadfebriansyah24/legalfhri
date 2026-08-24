@@ -2,9 +2,13 @@
 
 import useSWR from "swr";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useUi } from "@/components/ToastProvider";
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+const fetcher = (url: string) => fetch(url).then((r) => {
+  if (!r.ok) throw new Error(`API error ${r.status}`);
+  return r.json();
+});
 
 type Ticket = {
   id: number;
@@ -116,7 +120,7 @@ export default function InboxPage() {
           )}
           
           {mine?.map((t) => (
-            <a 
+            <Link 
               key={t.id} 
               href={`/case/${t.id}`} 
               className="group flex items-center justify-between p-6 hover:bg-slate-50/50 transition-all duration-300"
@@ -138,7 +142,7 @@ export default function InboxPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

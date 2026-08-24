@@ -4,6 +4,9 @@ import { getSession } from "@/lib/session";
 import { getTotalBalance, getActiveBatches } from "@/lib/tokenBalance";
 import pool from "@/lib/db";
 import type { RowDataPacket } from "mysql2";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Dashboard — FHRI Legal Advisory" };
 
 const SOURCE_LABEL: Record<string, string> = {
   free_trial: "Free Trial",
@@ -22,14 +25,14 @@ export default async function DashboardPage() {
   if (!session) redirect("/login");
 
   const [total, batches, settingsRows, activeConsultations] = await Promise.all([
-    getTotalBalance(session!.id),
-    getActiveBatches(session!.id),
+    getTotalBalance(session.id),
+    getActiveBatches(session.id),
     pool.query<RowDataPacket[]>(
       "SELECT setting_value FROM app_settings WHERE setting_key = 'wa_marketing_number'"
     ),
     pool.query<RowDataPacket[]>(
       "SELECT id, topik, status, created_at FROM consultations WHERE user_id = ? AND status IN ('waiting', 'active') ORDER BY created_at DESC",
-      [session!.id]
+      [session.id]
     ),
   ]);
 
@@ -55,7 +58,7 @@ export default async function DashboardPage() {
           Overview Portal
         </span>
         <h1 className="text-3xl font-extrabold text-[#0B2A4A] tracking-tight mt-1">
-          Halo, {session!.nama}
+          Halo, {session.nama}
         </h1>
       </div>
 
@@ -161,7 +164,7 @@ export default async function DashboardPage() {
           </p>
           <div className="divide-y divide-slate-100 border border-slate-100 rounded-2xl overflow-hidden bg-slate-50/20">
             {activeCases.map((c) => (
-              <a
+              <Link
                 key={c.id}
                 href={`/consultations/${c.id}`}
                 className="group flex items-center justify-between p-5 hover:bg-white transition-all duration-300 first:rounded-t-2xl last:rounded-b-2xl border-b last:border-0 border-slate-100"
@@ -186,7 +189,7 @@ export default async function DashboardPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>

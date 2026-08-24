@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 
 export type NavItem = { href: string; label: string };
 
@@ -128,7 +129,7 @@ export default function AppShell({
           {navItems.map((item) => {
             const active = pathname === item.href || pathname.startsWith(item.href + "/");
             return (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 className={`group flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 border ${
@@ -141,7 +142,7 @@ export default function AppShell({
                   {getIcon(item.href)}
                 </span>
                 <span>{item.label}</span>
-              </a>
+              </Link>
             );
           })}
         </nav>

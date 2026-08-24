@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useUi } from "@/components/ToastProvider";
 
 export default function LoginPage() {
@@ -68,10 +69,11 @@ export default function LoginPage() {
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">
+                <label htmlFor="email" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">
                   Email
                 </label>
                 <input 
+                  id="email"
                   type="email" 
                   required
                   value={formData.email}
@@ -82,10 +84,11 @@ export default function LoginPage() {
               </div>
 
               <div>
-                <label className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">
+                <label htmlFor="password" className="block text-[10px] font-extrabold text-[#0B2A4A] mb-2 uppercase tracking-wider">
                   Password
                 </label>
                 <input 
+                  id="password"
                   type="password" 
                   required
                   value={formData.password}
@@ -114,9 +117,9 @@ export default function LoginPage() {
             <div className="mt-8 pt-6 border-t border-slate-100 text-center">
               <p className="text-xs text-slate-500 font-medium">
                 Belum memiliki akun?{" "}
-                <a href="/register" className="font-extrabold text-[#DC0017] hover:underline">
+                <Link href="/register" className="font-extrabold text-[#DC0017] hover:underline">
                   Daftar Di Sini
-                </a>
+                </Link>
               </p>
             </div>
 
