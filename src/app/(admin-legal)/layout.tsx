@@ -8,7 +8,10 @@ export default async function AdminLegalLayout({ children }: { children: React.R
     <AppShell
       eyebrow="ADMIN LEGAL"
       userName={session?.nama ?? ""}
-      navItems={[{ href: "/inbox", label: "Queue Inbox" }]}
+      navItems={[
+        { href: "/inbox", label: "Queue Inbox" },
+        { href: "/history", label: "Riwayat Kasus" },
+      ]}
     >
       {children}
     </AppShell>
