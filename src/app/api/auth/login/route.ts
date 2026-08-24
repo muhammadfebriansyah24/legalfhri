@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import bcrypt from 'bcryptjs';
+import type { RowDataPacket } from 'mysql2';
+import { encodeSession, sessionCookieOptions } from '@/lib/session';
 
 export async function POST(request: Request) {
   try {
@@ -13,7 +15,7 @@ export async function POST(request: Request) {
     }
 
     // 2. Cari user di database berdasarkan email
-    const [users]: any = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+    const [users] = await pool.query<RowDataPacket[]>('SELECT * FROM users WHERE email = ?', [email]);
     
     if (users.length === 0) {
       return NextResponse.json({ error: 'Email tidak terdaftar!' }, { status: 401 });
@@ -35,18 +37,13 @@ export async function POST(request: Request) {
       role: user.role 
     }, { status: 200 });
 
-    // 5. Buat Sesi (Cookie) agar user tetap login selama 24 jam
-    response.cookies.set({
-      name: 'user_session',
-      value: JSON.stringify({ id: user.id, role: user.role, nama: user.nama_perusahaan }),
-      httpOnly: true,
-      path: '/',
-      maxAge: 60 * 60 * 24, // 24 jam dalam detik
-    });
+    // 5. Buat Sesi (Cookie, ditandatangani HMAC) agar user tetap login selama 24 jam
+    const value = await encodeSession({ id: user.id, role: user.role, nama: user.nama_perusahaan });
+    response.cookies.set({ ...sessionCookieOptions(), value });
 
     return response;
 
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Terjadi kesalahan pada server.' }, { status: 500 });
   }
 }

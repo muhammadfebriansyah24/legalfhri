@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { ToastProvider } from "@/components/ToastProvider";
 
 // Konfigurasi ketebalan font Poppins yang dibutuhkan
 const poppins = Poppins({
@@ -9,7 +10,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Login | FHRI Legal",
+  title: "FHRI Legal Advisory",
   description: "Portal Konsultasi Hukum First HR Indonesia",
 };
 
@@ -21,8 +22,10 @@ export default function RootLayout({
   return (
     <html lang="id">
       {/* Menerapkan font Poppins ke seluruh elemen body */}
-      <body className={`${poppins.className} bg-slate-50 antialiased`}>
-        {children}
+      <body className={`${poppins.className} bg-bg-app antialiased`}>
+        <ToastProvider>
+          {children}
+        </ToastProvider>
       </body>
     </html>
   );
