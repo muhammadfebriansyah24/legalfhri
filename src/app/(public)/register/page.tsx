@@ -17,6 +17,7 @@ export default function RegisterPage() {
     password: ""
   });
   const [loading, setLoading] = useState(false);
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -163,9 +164,9 @@ export default function RegisterPage() {
                 />
                 <p>
                   Saya menyetujui{" "}
-                  <Link href="/disclaimer" target="_blank" className="font-extrabold text-[#DC0017] hover:underline">
-                    Legal Disclaimer & Syarat Ketentuan
-                  </Link>{" "}
+                  <button type="button" onClick={() => setShowDisclaimer(true)} className="font-extrabold text-[#DC0017] hover:underline cursor-pointer">
+                    Legal Disclaimer &amp; Syarat Ketentuan
+                  </button>{" "}
                   yang berlaku di FHRI.
                 </p>
               </div>
@@ -197,6 +198,67 @@ export default function RegisterPage() {
           </div>
         </div>
       </div>
+
+      {/* Legal Disclaimer Modal */}
+      {showDisclaimer && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={() => setShowDisclaimer(false)}>
+          <div className="w-full max-w-2xl animate-scale-up" onClick={(e) => e.stopPropagation()}>
+            <div className="bg-slate-900/5 p-1.5 rounded-[2rem] border border-black/5 shadow-2xl">
+              <div className="bg-white rounded-[calc(2rem-0.375rem)] p-8 md:p-10 border border-slate-100 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)]">
+                <div className="mb-6">
+                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#DC0017] block mb-2">
+                    Legal Disclaimer
+                  </span>
+                  <h2 className="text-3xl font-extrabold text-[#0B2A4A] tracking-tight mb-2">
+                    Syarat &amp; Ketentuan Konsultasi
+                  </h2>
+                  <p className="text-slate-500 text-xs font-medium leading-relaxed">
+                    Harap baca dengan seksama sebelum melakukan pendaftaran layanan penasihat hukum kami.
+                  </p>
+                </div>
+
+                <div className="max-h-72 overflow-y-auto bg-[#EFF6FF]/70 rounded-2xl p-6 text-xs text-[#0B2A4A]/90 font-medium space-y-4 border border-slate-100 leading-relaxed scrollbar-thin scrollbar-thumb-slate-200">
+                  <p>
+                    Layanan FHRI Legal Advisory (&ldquo;Layanan&rdquo;) adalah kanal konsultasi hukum awal (preliminary)
+                    antara klien korporat dan tim Admin Legal First HR Indonesia (FHRI), disediakan berbasis token.
+                  </p>
+                  <p>
+                    Informasi yang diberikan melalui Layanan bersifat gambaran umum dan tidak menggantikan pendapat
+                    hukum formal (legal opinion) atau representasi hukum resmi. Setiap keputusan bisnis yang diambil
+                    berdasarkan hasil konsultasi menjadi tanggung jawab penuh pengguna.
+                  </p>
+                  <p>
+                    Seluruh transaksi pembayaran (top-up token) dilakukan secara manual di luar sistem website, melalui
+                    tim Digital Marketing FHRI via WhatsApp. Website tidak memproses atau menyimpan data pembayaran apa pun.
+                  </p>
+                  <p>
+                    Token konsultasi memiliki masa berlaku (expiry) masing-masing sesuai paket yang dibeli atau masa
+                    free trial. Token yang telah kedaluwarsa tidak dapat dipulihkan atau ditukar kembali.
+                  </p>
+                  <p>
+                    Dokumen yang diunggah dalam sesi konsultasi disimpan secara privat dan hanya dapat diakses oleh
+                    pemilik konsultasi dan tim Admin Legal/Superadmin FHRI yang berwenang.
+                  </p>
+                  <p>
+                    Dengan mendaftar dan menggunakan Layanan ini, pengguna menyatakan telah membaca, memahami, dan
+                    menyetujui seluruh ketentuan di atas.
+                  </p>
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-slate-100 text-center">
+                  <button
+                    type="button"
+                    onClick={() => setShowDisclaimer(false)}
+                    className="inline-block bg-[#DC0017] hover:bg-red-700 text-white text-xs font-bold rounded-full px-8 py-4 transition-all duration-300 active:scale-98 cursor-pointer shadow-lg shadow-red-100 tracking-wider"
+                  >
+                    TUTUP
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
