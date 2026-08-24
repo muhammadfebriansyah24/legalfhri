@@ -163,7 +163,7 @@ export default function RegisterPage() {
                 />
                 <p>
                   Saya menyetujui{" "}
-                  <Link href="/disclaimer" target="_self" className="font-extrabold text-[#DC0017] hover:underline">
+                  <Link href="/disclaimer" target="_blank" className="font-extrabold text-[#DC0017] hover:underline">
                     Legal Disclaimer & Syarat Ketentuan
                   </Link>{" "}
                   yang berlaku di FHRI.
